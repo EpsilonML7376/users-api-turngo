@@ -12,9 +12,9 @@ import { LoginDTO } from '../interfaces/login.dto';
 import { RegisterDTO } from '../interfaces/register.dto';
 import { Request } from 'express';
 import { AuthGuard } from '../middlewares/auth.middleware';
-import { RequestWithUser } from 'src/interfaces/request-user';
+import { RequestWithUser } from '../interfaces/request-user';
 import { AssignRoleDto } from './user.Dto';
-import { Permissions } from 'src/middlewares/decorators/permissions.decorator'; 
+import { Permissions } from '../middlewares/decorators/permissions.decorator'; 
 
 
 @Controller('')

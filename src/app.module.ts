@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { entities } from './entities';
 import { AuthGuard } from './middlewares/auth.middleware';
@@ -15,16 +16,16 @@ import { RolesService } from './roles/roles.service';
     TypeOrmModule.forRoot({
         type: 'postgres',
         host: 'localhost',
-        database: 'postgres',
-        username: 'postgres',
-        password: 'postgres',
-        port: 5002,
+        database: 'turngo-db',
+        username: 'turngo-user',
+        password: 'turngo-pass',
+        port: 5333,
         synchronize: true,
         entities,
     }),
     TypeOrmModule.forFeature(entities),
   ],
-  controllers: [UsersController, RolesController, PermissionsController],
+  controllers: [AppController,UsersController, RolesController, PermissionsController],
   providers: [AuthGuard, JwtService, UsersService, PermissionsService, RolesService],
 })
 export class AppModule {}

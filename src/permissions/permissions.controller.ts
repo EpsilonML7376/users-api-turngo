@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '../middlewares/auth.middleware';
+import { Permissions } from '../middlewares/decorators/permissions.decorator';
 import { PermissionsService } from './permissions.service';
-import { AuthGuard } from 'src/middlewares/auth.middleware';
-import { Permissions } from 'src/middlewares/decorators/permissions.decorator'; 
 import { CreatePermissionDto } from './permissionsDto';
 @Controller('permissions')
 export class PermissionsController {

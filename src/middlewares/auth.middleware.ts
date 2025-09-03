@@ -1,13 +1,9 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
-import { RequestWithUser } from 'src/interfaces/request-user';
-import { JwtService } from 'src/jwt/jwt.service';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
+import { RequestWithUser } from '../interfaces/request-user';
+import { JwtService } from '../jwt/jwt.service';
 import { Permissions } from './decorators/permissions.decorator';
 import { ForbiddenException } from '@nestjs/common';
 
