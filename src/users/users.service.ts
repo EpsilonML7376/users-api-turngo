@@ -66,10 +66,27 @@ export class UsersService {
     return await this.userRepository.findOneBy({ email });
   }
 
-  async assignRole(id: number, assignRoleDto: AssignRoleDto) {
-    const user = await this.userRepository.findOne({ where: { id } });
+  async assignRole(id: number,assignRoleDto: AssignRoleDto){
+    const user = await this.userRepository.findOne({ where: {id} });
     const role = await this.rolesService.findRoleByName(assignRoleDto.roleName);
     user.role = role;
     return await this.userRepository.save(user)
+  }
+
+  async createFromGoogle(googleUser: any): Promise<UserEntity> {
+    const user = new UserEntity();
+    user.email = googleUser.email;
+    user.firstName = googleUser.firstName;
+    user.lastName = googleUser.lastName;
+    user.password = ''; // Usuarios de Google no tienen contraseña
+    user.googleId = googleUser.googleId;
+    user.picture = googleUser.picture;
+    user.isGoogleUser = true;
+    
+    // Asignar rol por defecto
+    const defaultRole = await this.rolesService.findRoleByName('usuario');
+    user.role = defaultRole;
+    
+    return await this.userRepository.save(user);
   }
 }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
 import { entities } from './entities';
 import { AuthGuard } from './middlewares/auth.middleware';
 import { JwtService } from './jwt/jwt.service';
@@ -10,9 +11,12 @@ import { RolesController } from './roles/roles.controller';
 import { PermissionsController } from './permissions/permissions.controller';
 import { PermissionsService } from './permissions/permissions.service';
 import { RolesService } from './roles/roles.service';
+import { GoogleStrategy } from './auth/strategies/google.strategy';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
+    PassportModule,
     TypeOrmModule.forRoot({
         type: 'postgres',
         host: 'localhost',
@@ -25,7 +29,7 @@ import { RolesService } from './roles/roles.service';
     }),
     TypeOrmModule.forFeature(entities),
   ],
-  controllers: [AppController,UsersController, RolesController, PermissionsController],
-  providers: [AuthGuard, JwtService, UsersService, PermissionsService, RolesService],
+  controllers: [AppController, UsersController, RolesController, PermissionsController, AuthController],
+  providers: [AuthGuard, JwtService, UsersService, PermissionsService, RolesService, GoogleStrategy],
 })
 export class AppModule {}
