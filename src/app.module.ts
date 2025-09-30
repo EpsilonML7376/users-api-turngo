@@ -13,6 +13,7 @@ import { PermissionsService } from './permissions/permissions.service';
 import { RolesService } from './roles/roles.service';
 import { GoogleStrategy } from './auth/strategies/google.strategy';
 import { AuthController } from './auth/auth.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -28,6 +29,9 @@ import { AuthController } from './auth/auth.controller';
         entities,
     }),
     TypeOrmModule.forFeature(entities),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController, UsersController, RolesController, PermissionsController, AuthController],
   providers: [AuthGuard, JwtService, UsersService, PermissionsService, RolesService, GoogleStrategy],
