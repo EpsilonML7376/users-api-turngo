@@ -29,6 +29,12 @@ export class UsersController {
     };
   }
 
+  @UseGuards(AuthGuard)
+  @Get('info')
+  info(@Req() req: RequestWithUser) {
+    return this.service.getUserInfo(req)
+  }
+
   @Post('login')
   login(@Body() body: LoginDTO) {
     return this.service.login(body);

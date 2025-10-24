@@ -15,6 +15,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AssignRoleDto } from './user.Dto';
 import { retry } from 'rxjs';
+import { RequestWithUser } from 'src/interfaces/request-user';
 
 @Injectable()
 export class UsersService {
@@ -64,6 +65,12 @@ export class UsersService {
   }
   async findByEmail(email: string): Promise<UserEntity> {
     return await this.userRepository.findOneBy({ email });
+  }
+
+  async getUserInfo(req: RequestWithUser): Promise<{firstName: string, lastName: string, email: string}> {
+    const user = await this.findByEmail(req.user.email)
+    const {firstName, lastName, email} = user
+    return {firstName, lastName, email}
   }
 
   async assignRole(id: number,assignRoleDto: AssignRoleDto){
