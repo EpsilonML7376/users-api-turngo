@@ -67,10 +67,10 @@ export class UsersService {
     return await this.userRepository.findOneBy({ email });
   }
 
-  async getUserInfo(req: RequestWithUser): Promise<{firstName: string, lastName: string, email: string}> {
+  async getUserInfo(req: RequestWithUser): Promise<{id: number, firstName: string, lastName: string, email: string}> {
     const user = await this.findByEmail(req.user.email)
-    const {firstName, lastName, email} = user
-    return {firstName, lastName, email}
+    const {id, firstName, lastName, email} = user
+    return {id, firstName, lastName, email}
   }
 
   async assignRole(id: number,assignRoleDto: AssignRoleDto){
